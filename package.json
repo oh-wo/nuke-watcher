@@ -7,5 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "3.0.1",
+    "commander": "2.9.0",
+    "mkpath": "1.0.0",
+    "path": "0.12.7",
+    "watchr": "3.0.1"
+  }
 }
