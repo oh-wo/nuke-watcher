@@ -1,7 +1,10 @@
-# Usage
-To install: `npm i -g nuke-watcher`
+# Dependencies
+- [Node](https://nodejs.org/en/download/)
 
-To use: `nuke-watcher '~/Desktop/folder-to-watch'`
+# Usage
+1. Check you have installed all dependencies (above).
+1. To install: `npm i -g nuke-watcher`
+1. To use: `nuke-watcher '~/Desktop/folder-to-watch'`
 
 # Development
 ## Installaton
