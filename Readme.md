@@ -7,7 +7,7 @@
 1. To use: `nuke-watcher '~/Desktop/folder-to-watch'`
 
 # Development
-## Installaton
+## Installation
 `npm i`
 
 ## Running the project
