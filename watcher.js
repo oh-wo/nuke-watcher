@@ -1,11 +1,11 @@
 const watchr = require('watchr');
 
 const handlers = {
-    'update': (fullPath, callback) => {
-        if (callback) {
-            callback(fullPath);
-        }
-    },
+    // 'update': (fullPath, callback) => {
+    //     if (callback) {
+    //         callback(fullPath);
+    //     }
+    // },
 
     'create': (fullPath, callback) => {
         if (callback) {
@@ -13,18 +13,20 @@ const handlers = {
         }
     },
 
-    'delete': (fullPath, callback) => {
-        if (callback) {
-            callback(fullPath);
-        }
-    }
+    // 'delete': (fullPath, callback) => {
+    //     if (callback) {
+    //         callback(fullPath);
+    //     }
+    // }
 };
 
 function watch(dir, onCreated) {
 
     function listener(changeType, fullPath, currentStat, previousStat) {
         console.log(changeType, fullPath, currentStat, previousStat)
-        handlers[changeType](fullPath, onCreated);
+        if (handlers[changeType]) {
+            handlers[changeType](fullPath, onCreated);
+        }
     }
 
     function next(err) {
