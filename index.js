@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-console.log("console.log output");
 
 const watcher = require('./watcher');
 const runner = require('./runner');
@@ -32,21 +31,35 @@ function nukeWatch(dir) {
     mkpath.sync(failed, 0777);
 
     // Watch directory.
-    watcher.watch(dir, file => {
-        // Call nuke.
-        runner.run(file)
-            .then(code => {
-                console.log('success:', code)
-                x(code, file);
-            })
-            .catch(code => {
-                console.log('error:', code);
-                x(code, file);
-            });
+    watcher.watch(dir, runAndMove);
+
+    // Run on any existing files in the directory.
+    fs.readdir(dir, (err, files) => {
+        if (err) {
+            console.log(err)
+        }
+        files.forEach(file => {
+            let fullPath = path.join(dir, file);
+            runAndMove(fullPath);
+        })
     });
 
 
-    function x(code, file) {
+    function runAndMove(file) {
+        console.log('file', file)
+        runner.run(file)
+            .then(code => {
+                console.log('success:', code)
+                moveFile(code, file);
+            })
+            .catch(code => {
+                console.log('error:', code);
+                moveFile(code, file);
+            });
+    }
+
+
+    function moveFile(code, file) {
         console.log('code', code);
         const fileName = path.basename(file);
         const target = code === 0 ? complete : failed;
