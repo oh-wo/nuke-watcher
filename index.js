@@ -26,12 +26,13 @@ function nukeWatch(dir) {
     const failed = path.join(dir, '..', 'Failed');
 
     // Setup folder structure.
-    mkpath.sync(dir, 0777);
-    mkpath.sync(complete, 0777);
-    mkpath.sync(failed, 0777);
+    generateFolderStruture();
 
     // Watch directory.
-    watcher.watch(dir, runAndMove);
+    watcher.watch(dir, file => {
+        generateFolderStruture();
+        runAndMove(file);
+    });
 
     // Run on any existing files in the directory.
     fs.readdir(dir, (err, files) => {
@@ -56,6 +57,12 @@ function nukeWatch(dir) {
                 console.log('error:', code);
                 moveFile(code, file);
             });
+    }
+
+    function generateFolderStruture(){
+        mkpath.sync(dir, 0777);
+        mkpath.sync(complete, 0777);
+        mkpath.sync(failed, 0777);
     }
 
 
